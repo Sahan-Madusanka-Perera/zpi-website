@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
@@ -10,10 +10,19 @@ import Typed from 'typed.js';
 export function HeroSection() {
   const containerRef = useRef(null);
   const el = useRef(null);
+  const [scrolled, setScrolled] = useState(false);
   
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const typed = new Typed(el.current, {
@@ -173,8 +182,12 @@ export function HeroSection() {
             
             <motion.a
               href="#contact"
-              className="hidden md:inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full border-2 border-white/30 hover:border-white/60 text-white font-medium transition-all duration-300 shadow-lg"
-              whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
+              className={`hidden md:inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full border-2 transition-all duration-300 shadow-lg ${
+                scrolled 
+                  ? 'border-red-500/30 hover:border-red-500/60 text-red-600 hover:bg-red-500/10' 
+                  : 'border-white/30 hover:border-white/60 text-white hover:bg-white/10'
+              }`}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
               Contact Us
