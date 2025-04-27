@@ -44,17 +44,18 @@ const timeline = [
 ];
 
 export function TimelineSection() {
-  const containerRef = useRef(null);
+  const timelineRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: timelineRef,
     offset: ["start end", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0.8, 1, 1, 0.8]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+  const y = useTransform(scrollYProgress, [0, 0.5], [50, 0]);
 
   return (
-    <section ref={containerRef} id="timeline" className="py-20 bg-stone-50 dark:bg-black relative overflow-hidden">
+    <section ref={timelineRef} id="timeline" className="py-20 bg-stone-50 dark:bg-black relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10 dark:opacity-20" />
       <motion.div

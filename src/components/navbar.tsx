@@ -1,16 +1,7 @@
 // components/Navbar.tsx
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetTitle,
-  SheetHeader,
-} from '@/components/ui/sheet';
-import { PhoneCall, Menu, X, Sun, Moon } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/context/theme-context';
@@ -73,8 +64,6 @@ export function Navbar() {
     { name: 'Contact', href: '#contact' },
     { name: 'Companies', href: '#strength' }
   ];
-
-  const MotionLink = motion(Link);
 
   // Handle smooth scrolling
   const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
