@@ -18,12 +18,12 @@ export function BackgroundAccents({
 }: BackgroundAccentsProps) {
   // Generate the right number of orbs
   const orbs = Array.from({ length: orbCount }, (_, i) => {
-    // Create random position and size values
-    const size = 30 + Math.random() * 80; // Size between 30 and 110
-    const top = Math.random() * 100; // Position from 0% to 100%
-    const left = Math.random() * 100;
-    const delay = Math.random() * 5; // Animation delay up to 5s
-    const duration = 10 + Math.random() * 15; // Animation duration 10-25s
+    // Use deterministic values based on index
+    const size = 30 + (i * 20) % 80; // Size between 30 and 110
+    const top = (i * 30) % 100; // Position from 0% to 100%
+    const left = (i * 40) % 100;
+    const delay = (i * 1.2) % 5; // Animation delay up to 5s
+    const duration = 10 + (i * 2) % 15; // Animation duration 10-25s
     
     // Different opacity based on variant
     let opacity = 0.4;
@@ -39,7 +39,7 @@ export function BackgroundAccents({
         left: `${left}%`,
         animationDelay: `${delay}s`,
         animationDuration: `${duration}s`,
-        opacity: opacity
+        opacity
       }
     };
   });
