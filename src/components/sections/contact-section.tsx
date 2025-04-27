@@ -52,7 +52,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-1">Address</h3>
-                  <p className="text-gray-700 dark:text-gray-300">No. 123, Main Street, Colombo, Sri Lanka</p>
+                  <p className="text-gray-700 dark:text-gray-300">Zeus Power International (Pvt) Ltd, 665/1, Gunathilake Gardens, Elwitigala Mawatha, Colombo 05,  Sri Lanka</p>
                 </div>
               </div>
 
