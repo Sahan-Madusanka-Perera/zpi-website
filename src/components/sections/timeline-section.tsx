@@ -18,6 +18,78 @@ function useTimelineItemAnimation(itemRef: React.RefObject<HTMLDivElement | null
   return { itemOpacity, itemX, itemScale };
 }
 
+// Timeline Item Component
+interface TimelineItemProps {
+  item: {
+    year: string;
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+  };
+  index: number;
+}
+
+function TimelineItem({ item, index }: TimelineItemProps) {
+  const isEven = index % 2 === 0;
+  const itemRef = useRef<HTMLDivElement>(null);
+  const { itemOpacity, itemX, itemScale } = useTimelineItemAnimation(itemRef, isEven);
+
+  return (
+    <motion.div
+      ref={itemRef}
+      style={{ opacity: itemOpacity, x: itemX, scale: itemScale }}
+      className={`relative flex flex-col md:flex-row ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-4 md:gap-8`}
+    >
+      {/* Mobile Timeline - Year + Icon */}
+      <div className="flex md:hidden items-center justify-center space-x-4 w-full mb-4">
+        <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
+          {item.icon}
+        </div>
+        <div className="font-bold text-xl text-red-500">
+          {item.year}
+        </div>
+      </div>
+
+      {/* Year Circle - Desktop Only */}
+      <motion.div
+        style={{ opacity: itemOpacity, scale: itemScale }}
+        className={`hidden md:flex absolute ${isEven ? 'md:left-0' : 'md:right-0'} w-20 h-20 md:w-24 md:h-24 rounded-full bg-red-500/10 border-2 border-red-500/20 items-center justify-center z-10`}
+      >
+        <span className="text-red-500 font-bold text-xl">{item.year}</span>
+      </motion.div>
+
+      {/* Content Card */}
+      <motion.div
+        style={{ opacity: itemOpacity, scale: itemScale }}
+        className={`w-full md:w-1/2 ${isEven ? 'md:ml-auto' : 'md:mr-auto'}`}
+      >
+        <div className="bg-white dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-200 dark:border-white/10 hover:border-red-500/50 transition-all duration-300 shadow-sm hover:shadow-md">
+          <motion.div
+            style={{ opacity: itemOpacity, scale: itemScale }}
+            className={`hidden md:flex ${isEven ? 'justify-end' : 'justify-start'} mb-4`}
+          >
+            <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+              {item.icon}
+            </div>
+          </motion.div>
+          <motion.h3
+            style={{ opacity: itemOpacity, scale: itemScale }}
+            className="text-xl font-bold text-gray-900 dark:text-white mb-3"
+          >
+            {item.title}
+          </motion.h3>
+          <motion.p
+            style={{ opacity: itemOpacity, scale: itemScale }}
+            className="text-gray-700 dark:text-gray-300 sm:text-justify leading-relaxed"
+          >
+            {item.description}
+          </motion.p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 const timeline = [
   {
     year: "1992",
@@ -66,7 +138,6 @@ export function TimelineSection() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [50, 0]);
 
   return (
     <section ref={timelineRef} id="timeline" className="py-20 bg-stone-50 dark:bg-black relative overflow-hidden">
@@ -105,67 +176,9 @@ export function TimelineSection() {
 
           {/* Timeline Items */}
           <div className="space-y-12 md:space-y-24">
-            {timeline.map((item, index) => {
-              const isEven = index % 2 === 0;
-              const itemRef = useRef<HTMLDivElement>(null);
-              const { itemOpacity, itemX, itemScale } = useTimelineItemAnimation(itemRef, isEven);
-
-              return (
-                <motion.div
-                  key={index}
-                  ref={itemRef}
-                  style={{ opacity: itemOpacity, x: itemX, scale: itemScale }}
-                  className={`relative flex flex-col md:flex-row ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-4 md:gap-8`}
-                >
-                  {/* Mobile Timeline - Year + Icon */}
-                  <div className="flex md:hidden items-center justify-center space-x-4 w-full mb-4">
-                    <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
-                      {item.icon}
-                    </div>
-                    <div className="font-bold text-xl text-red-500">
-                      {item.year}
-                    </div>
-                  </div>
-
-                  {/* Year Circle - Desktop Only */}
-                  <motion.div
-                    style={{ opacity: itemOpacity, scale: itemScale }}
-                    className={`hidden md:flex absolute ${isEven ? 'md:left-0' : 'md:right-0'} w-20 h-20 md:w-24 md:h-24 rounded-full bg-red-500/10 border-2 border-red-500/20 items-center justify-center z-10`}
-                  >
-                    <span className="text-red-500 font-bold text-xl">{item.year}</span>
-                  </motion.div>
-
-                  {/* Content Card */}
-                  <motion.div
-                    style={{ opacity: itemOpacity, scale: itemScale }}
-                    className={`w-full md:w-1/2 ${isEven ? 'md:ml-auto' : 'md:mr-auto'}`}
-                  >
-                    <div className="bg-white dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-200 dark:border-white/10 hover:border-red-500/50 transition-all duration-300 shadow-sm hover:shadow-md">
-                      <motion.div
-                        style={{ opacity: itemOpacity, scale: itemScale }}
-                        className={`hidden md:flex ${isEven ? 'justify-end' : 'justify-start'} mb-4`}
-                      >
-                        <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20">
-                          {item.icon}
-                        </div>
-                      </motion.div>
-                      <motion.h3
-                        style={{ opacity: itemOpacity, scale: itemScale }}
-                        className="text-xl font-bold text-gray-900 dark:text-white mb-3"
-                      >
-                        {item.title}
-                      </motion.h3>
-                      <motion.p
-                        style={{ opacity: itemOpacity, scale: itemScale }}
-                        className="text-gray-700 dark:text-gray-300 sm:text-justify leading-relaxed"
-                      >
-                        {item.description}
-                      </motion.p>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
+            {timeline.map((item, index) => (
+              <TimelineItem key={index} item={item} index={index} />
+            ))}
           </div>
         </div>
       </div>
