@@ -4,6 +4,20 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { Building2, Award, Users, Globe, Shield, Zap } from 'lucide-react';
 
+// Custom hook for timeline item animations
+function useTimelineItemAnimation(itemRef: React.RefObject<HTMLDivElement | null>, isEven: boolean) {
+  const { scrollYProgress } = useScroll({
+    target: itemRef,
+    offset: ["start end", "end start"]
+  });
+
+  const itemOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const itemX = useTransform(scrollYProgress, [0, 1], [isEven ? -50 : 50, 0]);
+  const itemScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
+
+  return { itemOpacity, itemX, itemScale };
+}
+
 const timeline = [
   {
     year: "1992",
@@ -44,7 +58,7 @@ const timeline = [
 ];
 
 export function TimelineSection() {
-  const timelineRef = useRef(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: timelineRef,
     offset: ["start end", "end start"]
@@ -93,15 +107,8 @@ export function TimelineSection() {
           <div className="space-y-12 md:space-y-24">
             {timeline.map((item, index) => {
               const isEven = index % 2 === 0;
-              const itemRef = useRef(null);
-              const { scrollYProgress } = useScroll({
-                target: itemRef,
-                offset: ["start end", "end start"]
-              });
-
-              const itemOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-              const itemX = useTransform(scrollYProgress, [0, 1], [isEven ? -50 : 50, 0]);
-              const itemScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
+              const itemRef = useRef<HTMLDivElement>(null);
+              const { itemOpacity, itemX, itemScale } = useTimelineItemAnimation(itemRef, isEven);
 
               return (
                 <motion.div

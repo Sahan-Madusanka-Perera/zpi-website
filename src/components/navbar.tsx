@@ -6,6 +6,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/context/theme-context';
 import { smoothScrollTo } from '@/utils/smoothScroll';
+import { Sun, Moon, PhoneCall } from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from '@/components/ui/sheet';
 
 // Animated hamburger button component
 interface AnimatedHamburgerProps {
