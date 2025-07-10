@@ -171,7 +171,7 @@ export default function TeamSection() {
             Leadership Team
           </h3>
           <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Connect with our experienced leaders who guide Zeus Power International's mission 
+            Connect with our experienced leaders who guide Zeus Power International&apos;s mission 
             to deliver exceptional technical services and emergency support.
           </p>
         </motion.div>

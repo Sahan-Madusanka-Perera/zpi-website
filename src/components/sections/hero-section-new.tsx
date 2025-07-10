@@ -9,19 +9,10 @@ import Typed from 'typed.js';
 export function HeroSection() {
   const containerRef = useRef(null);
   const el = useRef(null);
-  const [scrolled, setScrolled] = useState(false);
   
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     const typed = new Typed(el.current, {

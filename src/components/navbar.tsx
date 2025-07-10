@@ -48,7 +48,6 @@ const AnimatedHamburger: React.FC<AnimatedHamburgerProps> = ({ isOpen, toggleOpe
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isAtHero, setIsAtHero] = useState(true);
   const { theme, toggleTheme, isTransitioning } = useTheme();
   const { isNavbarVisible } = useNavbar();
   
@@ -64,10 +63,8 @@ export function Navbar() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const isScrolled = scrollY > 20;
-      const isStillAtHero = scrollY < 100; // Consider hero section as first 100px
       
       setScrolled(isScrolled);
-      setIsAtHero(isStillAtHero);
     };
 
     handleScroll(); // Check initial scroll position

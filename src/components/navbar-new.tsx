@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useTheme } from '@/context/theme-context';
 import { Sun, Moon, PhoneCall, Menu, X } from 'lucide-react';
 

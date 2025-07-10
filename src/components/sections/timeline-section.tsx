@@ -210,7 +210,7 @@ export function TimelineSection() {
           </h2>
           <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-pretty">
             From our founding in 1992 to becoming a leading technical services provider, 
-            discover the milestones that have shaped Zeus Power International's commitment to excellence.
+            discover the milestones that have shaped Zeus Power International&apos;s commitment to excellence.
           </p>
         </motion.div>
 

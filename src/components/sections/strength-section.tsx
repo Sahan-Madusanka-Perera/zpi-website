@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Building, Network } from 'lucide-react';
+import { Network } from 'lucide-react';
 import Image from 'next/image';
 
 const companies = [

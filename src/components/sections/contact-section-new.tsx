@@ -69,7 +69,7 @@ export function ContactSection() {
           </h2>
           <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-pretty">
             Contact our expert team for emergency support, service inquiries, or to discuss 
-            your technical requirements. We're here to help 24/7.
+            your technical requirements. We&apos;re here to help 24/7.
           </p>
         </motion.div>
 
@@ -136,7 +136,7 @@ export function ContactSection() {
               </div>
 
               <p className="text-body text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                When you're facing a critical system failure or emergency breakdown, 
+                When you&apos;re facing a critical system failure or emergency breakdown, 
                 our expert technicians are just a phone call away. We provide rapid 
                 response times to minimize your downtime.
               </p>
