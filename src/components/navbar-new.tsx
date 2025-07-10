@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/context/theme-context';
-import { useNavbar } from '@/context/navbar-context';
 import { Sun, Moon, PhoneCall, Menu, X } from 'lucide-react';
 
 interface AnimatedHamburgerProps {
@@ -48,9 +47,7 @@ const AnimatedHamburger: React.FC<AnimatedHamburgerProps> = ({ isOpen, toggleOpe
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isAtHero, setIsAtHero] = useState(true);
-  const { theme, toggleTheme, isTransitioning } = useTheme();
-  const { isNavbarVisible } = useNavbar();
+  const { theme, toggleTheme } = useTheme();
   
   const navigationItems = [
     { name: 'About', href: '#about' },
@@ -62,12 +59,8 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const isScrolled = scrollY > 20;
-      const isStillAtHero = scrollY < 100; // Consider hero section as first 100px
-      
+      const isScrolled = window.scrollY > 20;
       setScrolled(isScrolled);
-      setIsAtHero(isStillAtHero);
     };
 
     handleScroll(); // Check initial scroll position
@@ -94,7 +87,7 @@ export function Navbar() {
     <>
       <motion.nav
         initial={{ y: -100 }}
-        animate={{ y: isNavbarVisible ? 0 : -100 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled 
@@ -112,49 +105,23 @@ export function Navbar() {
               className="flex items-center gap-3"
             >
               <Link href="/" className="flex items-center gap-3 group">
-                <motion.div 
-                  className="relative w-48 h-12"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div className="logo-container w-full h-full hover-glow">
-                    <div className="relative w-full h-full flex items-center justify-center">
-                      <motion.div
-                        className="absolute inset-0"
-                        animate={{ 
-                          opacity: 1,
-                          scale: 1
-                        }}
-                        transition={{ 
-                          duration: 0.4, 
-                          ease: "easeInOut"
-                        }}
-                      >
-                        <Image
-                          src={theme === 'light' ? '/images/logo_for_light.png' : '/images/logo.png'}
-                          alt="Zeus Power International Logo"
-                          fill
-                          className="object-contain"
-                          priority
-                        />
-                      </motion.div>
-                      
-                      <div className="logo-fallback absolute inset-0 flex items-center justify-center">
-                        <div className="flex items-center space-x-2">
-                          <motion.div 
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                            className="flex items-end"
-                          >
-                            <span className="text-3xl text-gray-800 dark:text-white font-light tracking-wider">ZEUS</span>
-                            <span className="text-2xl gradient-text-primary font-black tracking-tight">POWER</span>
-                          </motion.div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
+                <div className="relative">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="w-12 h-12 rounded-xl bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center shadow-lg group-hover:shadow-red-500/25 transition-shadow duration-300"
+                  >
+                    <span className="text-white font-bold text-xl">Z</span>
+                  </motion.div>
+                </div>
+                <div className="hidden sm:block">
+                  <h1 className="text-heading-3 gradient-text-primary font-bold leading-tight">
+                    Zeus Power
+                  </h1>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">
+                    Emergency Services
+                  </p>
+                </div>
               </Link>
             </motion.div>
 
@@ -204,52 +171,34 @@ export function Navbar() {
               {/* Theme Toggle */}
               <motion.button
                 onClick={toggleTheme}
-                disabled={isTransitioning}
-                className={`p-2 rounded-lg glass-card border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors duration-200 ${
-                  isTransitioning ? 'opacity-75 cursor-not-allowed' : ''
-                }`}
-                whileHover={!isTransitioning ? { scale: 1.05 } : {}}
-                whileTap={!isTransitioning ? { scale: 0.98 } : {}}
+                className="p-2 rounded-lg glass-card border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors duration-200"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
                 aria-label="Toggle theme"
               >
-                <div className="relative w-5 h-5 flex items-center justify-center">
-                  <AnimatePresence mode="wait">
-                    {isTransitioning ? (
-                      <motion.div
-                        key="transitioning"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute inset-0 flex items-center justify-center"
-                      >
-                        <div className="w-4 h-4 rounded-full border-2 border-gray-300 border-t-red-500 animate-spin" />
-                      </motion.div>
-                    ) : theme === 'dark' ? (
-                      <motion.div
-                        key="sun"
-                        initial={{ rotate: -90, opacity: 0, scale: 0.8 }}
-                        animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                        exit={{ rotate: 90, opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="absolute inset-0 flex items-center justify-center"
-                      >
-                        <Sun className="h-5 w-5 text-yellow-500" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="moon"
-                        initial={{ rotate: 90, opacity: 0, scale: 0.8 }}
-                        animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                        exit={{ rotate: -90, opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="absolute inset-0 flex items-center justify-center"
-                      >
-                        <Moon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <AnimatePresence mode="wait">
+                  {theme === 'dark' ? (
+                    <motion.div
+                      key="sun"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Sun className="h-5 w-5 text-yellow-500" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="moon"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Moon className="h-5 w-5 text-gray-700" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.button>
 
               {/* Mobile Menu Button */}

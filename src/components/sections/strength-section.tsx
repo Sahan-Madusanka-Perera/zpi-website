@@ -1,6 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Building, Network } from 'lucide-react';
 import Image from 'next/image';
 
 const companies = [
@@ -27,136 +29,131 @@ const companies = [
   }
 ];
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.3
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 12
-    }
-  },
-  hover: {
-    y: -10,
-    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 20
-    }
-  }
-};
-
 export function StrengthSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section id="strength" className="py-20 bg-gray-50 dark:bg-black">
-      <div className="container mx-auto px-4">
+    <section id="strength" className="section-modern bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-black relative overflow-hidden">
+      {/* Modern Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+          backgroundSize: '20px 20px'
+        }} />
+      </div>
+      
+      {/* Enhanced Background Effects */}
+      <motion.div
+        className="absolute -top-40 -left-40 h-96 w-96 rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 68, 68, 0.12) 0%, rgba(255, 68, 68, 0.04) 40%, transparent 70%)',
+          filter: 'blur(40px)',
+        }}
+        animate={{ 
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.5, 0.2],
+          rotate: [0, 90, 180]
+        }}
+        transition={{ 
+          duration: 25,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+      
+      <motion.div
+        className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 68, 68, 0.08) 0%, rgba(255, 68, 68, 0.02) 40%, transparent 70%)',
+          filter: 'blur(30px)',
+        }}
+        animate={{ 
+          scale: [1.1, 1, 1.1],
+          opacity: [0.3, 0.6, 0.3],
+          rotate: [180, 270, 360]
+        }}
+        transition={{ 
+          duration: 18,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+
+      <div className="container-modern relative z-10">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <motion.h2 
-            className="heading-2 text-red-600 dark:text-red-500 mb-4"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-red-500/20 mb-6"
           >
+            <Network className="h-4 w-4 text-red-500" />
+            <span className="text-body-sm font-semibold text-red-600 dark:text-red-400">Our Network</span>
+          </motion.div>
+          
+          <h2 className="text-display-2 gradient-text-primary mb-6 text-balance">
             Our Group Companies
-          </motion.h2>
-          <motion.p 
-            className="body-large text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            Part of a strong network of specialized companies working together to provide comprehensive solutions.
-          </motion.p>
+          </h2>
+          <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-pretty">
+            Part of a strong network of specialized companies working together to provide comprehensive 
+            technical solutions and services across multiple industries.
+          </p>
         </motion.div>
 
+        {/* Companies Grid */}
         <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
         >
           {companies.map((company, index) => (
             <motion.div
               key={company.name}
-              variants={itemVariants}
-              whileHover="hover"
-              className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg transition-all duration-300 border border-transparent hover:border-red-400"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="modern-card overflow-hidden group cursor-pointer"
             >
               <div className="relative h-48 w-full overflow-hidden">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.4 }}
-                  className="h-full w-full"
-                >
-                  <Image
-                    src={company.image}
-                    alt={company.fullName}
-                    fill
-                    className="object-cover"
-                  />
-                </motion.div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <motion.div 
-                  className="absolute bottom-4 left-4 right-4"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + index * 0.1 }}
-                >
-                  <h3 className="text-xl font-bold text-white">{company.name}</h3>
-                </motion.div>
+                <Image
+                  src={company.image}
+                  alt={company.fullName}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 transform transition-transform duration-300 group-hover:translate-y-0">
+                  <h3 className="text-heading-3 font-bold text-white">{company.name}</h3>
+                </div>
               </div>
               <div className="p-6">
-                <h3 className="heading-3 text-gray-900 dark:text-white mb-2">{company.fullName}</h3>
-                <p className="body-regular text-gray-600 dark:text-gray-300 mb-4">{company.description}</p>
-                <motion.ul 
-                  className="space-y-2"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.1
-                      }
-                    }
-                  }}
-                >
-                  {company.services.map((service) => (
-                    <motion.li 
+                <h3 className="text-heading-2 gradient-text-primary mb-3 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors duration-300">{company.fullName}</h3>
+                <p className="text-body text-gray-600 dark:text-gray-300 mb-6 leading-relaxed group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300">{company.description}</p>
+                <ul className="space-y-3">
+                  {company.services.map((service, serviceIndex) => (
+                    <li 
                       key={service} 
-                      className="flex items-center text-gray-700 dark:text-gray-200"
-                      variants={{
-                        hidden: { opacity: 0, x: -10 },
-                        visible: { opacity: 1, x: 0 }
+                      className="flex items-center text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300"
+                      style={{ 
+                        transitionDelay: `${serviceIndex * 50}ms` 
                       }}
                     >
-                      <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                      {service}
-                    </motion.li>
+                      <div className="w-2 h-2 bg-red-500 rounded-full mr-3 flex-shrink-0 group-hover:bg-red-600 transition-colors duration-300"></div>
+                      <span className="text-body-sm">{service}</span>
+                    </li>
                   ))}
-                </motion.ul>
+                </ul>
               </div>
             </motion.div>
           ))}

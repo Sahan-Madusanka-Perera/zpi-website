@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Outfit } from "next/font/google";
+import "./modern-design-system.css";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/context/theme-context";
+import { NavbarProvider } from "@/context/navbar-context";
 import { ScrollToTop } from "@/components/scroll-to-top";
 
 // Define fonts with variables
@@ -32,9 +34,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${outfit.variable}`}>
       <body className="font-sans antialiased">
         <ThemeProvider>
-          <Navbar />
-          {children}
-          <ScrollToTop />
+          <NavbarProvider>
+            <Navbar />
+            {children}
+            <ScrollToTop />
+          </NavbarProvider>
         </ThemeProvider>
       </body>
     </html>

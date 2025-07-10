@@ -2,8 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Clock } from 'lucide-react';
 import Image from 'next/image';
 import Typed from 'typed.js';
 
@@ -11,12 +10,26 @@ export function HeroSection() {
   const containerRef = useRef(null);
   const el = useRef(null);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
+  // Fixed particle positions to avoid hydration mismatch
+  const particlePositions = [
+    { left: 15, top: 20, size: 3, color: 'rgba(255, 68, 68, 0.3)' },
+    { left: 85, top: 30, size: 2, color: 'rgba(59, 130, 246, 0.2)' },
+    { left: 25, top: 80, size: 4, color: 'rgba(34, 197, 94, 0.25)' },
+    { left: 70, top: 15, size: 3, color: 'rgba(255, 68, 68, 0.3)' },
+    { left: 45, top: 60, size: 2, color: 'rgba(59, 130, 246, 0.2)' },
+    { left: 90, top: 75, size: 3, color: 'rgba(34, 197, 94, 0.25)' },
+    { left: 10, top: 45, size: 4, color: 'rgba(168, 85, 247, 0.3)' },
+    { left: 60, top: 85, size: 2, color: 'rgba(255, 68, 68, 0.3)' },
+  ];
+
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -26,10 +39,10 @@ export function HeroSection() {
 
   useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: ['Powering Your Future', 'Zeus Power International(Pvt) Ltd'],
+      strings: ['Powering Your Future', 'Zeus Power International'],
       typeSpeed: 50,
       backSpeed: 30,
-      backDelay: 2000,
+      backDelay: 3000,
       loop: true,
       showCursor: true,
       cursorChar: '|'
@@ -40,161 +53,492 @@ export function HeroSection() {
     };
   }, []);
 
+  const features = [
+    { icon: Clock, text: "24/7 Emergency Response" },
+    { icon: Shield, text: "Expert Technical Support" },
+    { icon: Zap, text: "Minimal Downtime Solutions" }
+  ];
+
   return (
     <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background parallax effect */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ y, opacity }}
-      >
-        <Image
-          src="/images/hero-main.jpg"
-          alt="Zeus Power International Emergency Services"
-          fill
-          priority
-          className="object-cover"
-          quality={75}
-          loading="eager"
+      {/* Revolutionary Multi-Layer Background */}
+      <div className="absolute inset-0 z-0">
+        {/* Base Gradient Foundation */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-black" />
+        
+        {/* Dynamic Animated Grid */}
+        <div className="absolute inset-0 opacity-15">
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(255, 68, 68, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 68, 68, 0.4) 1px, transparent 1px)
+              `,
+              backgroundSize: '80px 80px',
+            }}
+            animate={{ 
+              backgroundPosition: ['0px 0px', '80px 80px'],
+              opacity: [0.15, 0.25, 0.15]
+            }}
+            transition={{ 
+              duration: 25,
+              repeat: Infinity,
+              ease: 'linear'
+            }}
+          />
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(59, 130, 246, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.2) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px',
+            }}
+            animate={{ 
+              backgroundPosition: ['60px 60px', '0px 0px'],
+              opacity: [0.1, 0.2, 0.1]
+            }}
+            transition={{ 
+              duration: 30,
+              repeat: Infinity,
+              ease: 'linear',
+              delay: 5
+            }}
+          />
+        </div>
+
+        {/* Subtle Main Background Image as Base */}
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          style={{ y }}
+        >
+          <Image
+            src="/images/HEM09771.jpg"
+            alt="Zeus Power International"
+            fill
+            priority
+            className="object-cover scale-110"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/60" />
+        </motion.div>
+      </div>
+
+      {/* Elegant Floating Particles */}
+      {mounted && particlePositions.map((particle, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
+            width: `${particle.size}px`,
+            height: `${particle.size}px`,
+            background: particle.color
+          }}
+          animate={{
+            y: [0, -30, 0],
+            opacity: [0.3, 0.8, 0.3],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: 4 + i * 0.5,
+            repeat: Infinity,
+            delay: i * 0.8,
+            ease: "easeInOut"
+          }}
         />
-        {/* Enhanced gradient overlay with animation */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80"
-          initial={{ opacity: 0.6 }}
-          animate={{ opacity: 0.8 }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+      ))}
+
+      {/* Advanced Geometric Elements */}
+      <motion.div
+        className="absolute top-1/4 left-1/3 w-32 h-32"
+        style={{
+          background: 'linear-gradient(45deg, rgba(255, 68, 68, 0.1), rgba(59, 130, 246, 0.1))',
+          clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+          filter: 'blur(1px)'
+        }}
+        animate={{ 
+          rotate: [0, 360],
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.5, 0.2]
+        }}
+        transition={{ 
+          duration: 18,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+
+      <motion.div
+        className="absolute bottom-1/3 right-1/4 w-28 h-28 border-2 rounded-full"
+        style={{
+          borderColor: 'rgba(255, 68, 68, 0.3)',
+          background: 'radial-gradient(circle, rgba(255, 68, 68, 0.05) 0%, transparent 70%)'
+        }}
+        animate={{ 
+          scale: [1, 1.6, 1],
+          opacity: [0.3, 0.7, 0.3],
+          rotate: [0, -360]
+        }}
+        transition={{ 
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      <motion.div
+        className="absolute top-2/3 left-1/5 w-20 h-20"
+        style={{
+          background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(168, 85, 247, 0.1))',
+          borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%'
+        }}
+        animate={{ 
+          rotate: [0, 180, 360],
+          scale: [1, 1.2, 1],
+          borderRadius: [
+            '30% 70% 70% 30% / 30% 30% 70% 70%',
+            '70% 30% 30% 70% / 70% 70% 30% 30%',
+            '30% 70% 70% 30% / 30% 30% 70% 70%'
+          ]
+        }}
+        transition={{ 
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      {/* Energy Pulse Rings */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+      >
+        <motion.div
+          className="w-[500px] h-[500px] rounded-full border border-red-400/15"
+          animate={{
+            scale: [1, 2.5, 1],
+            opacity: [0.4, 0, 0.4],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeOut",
+          }}
+        />
+        <motion.div
+          className="absolute w-96 h-96 rounded-full border border-blue-400/20"
+          animate={{
+            scale: [1, 2.2, 1],
+            opacity: [0.6, 0, 0.6],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: 2,
+          }}
+        />
+        <motion.div
+          className="absolute w-80 h-80 rounded-full border border-green-400/25"
+          animate={{
+            scale: [1, 1.8, 1],
+            opacity: [0.8, 0, 0.8],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: 4,
+          }}
         />
       </motion.div>
 
-      {/* Animated gradient orbs */}
+      {/* Enhanced Atmospheric Orbs */}
       <motion.div
-        className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-red-500/10 blur-3xl"
+        className="absolute -top-48 -right-48 h-[500px] w-[500px] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 68, 68, 0.12) 0%, rgba(255, 68, 68, 0.06) 30%, rgba(59, 130, 246, 0.04) 60%, transparent 80%)',
+          filter: 'blur(60px)',
+        }}
         animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.3, 0.2] 
+          scale: [1, 1.4, 1],
+          opacity: [0.3, 0.8, 0.3],
+          rotate: [0, 180, 360]
         }}
         transition={{ 
-          duration: 8,
+          duration: 28,
           repeat: Infinity,
-          repeatType: "reverse"
+          ease: "linear"
         }}
-        style={{ transform: 'translateZ(0)' }}
       />
       
       <motion.div
-        className="absolute bottom-20 -left-40 h-96 w-96 rounded-full bg-red-500/10 blur-3xl"
+        className="absolute bottom-10 -left-48 h-[450px] w-[450px] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, rgba(168, 85, 247, 0.05) 40%, rgba(255, 68, 68, 0.03) 70%, transparent 85%)',
+          filter: 'blur(50px)',
+        }}
         animate={{ 
-          scale: [1, 1.3, 1],
-          opacity: [0.1, 0.25, 0.1] 
+          scale: [1, 1.6, 1],
+          opacity: [0.2, 0.6, 0.2],
+          rotate: [360, 180, 0]
         }}
         transition={{ 
-          duration: 10,
+          duration: 35,
           repeat: Infinity,
-          repeatType: "reverse",
-          delay: 2
+          ease: "linear",
+          delay: 8
         }}
-        style={{ transform: 'translateZ(0)' }}
       />
 
-      {/* Content with enhanced animations */}
-      <div className="container mx-auto px-4 relative z-10 mt-32">
+      <motion.div
+        className="absolute top-1/3 -left-32 h-96 w-96 rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(34, 197, 94, 0.04) 50%, transparent 75%)',
+          filter: 'blur(40px)',
+        }}
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.4, 0.7, 0.4],
+          x: [0, 30, 0],
+          y: [0, -20, 0]
+        }}
+        transition={{ 
+          duration: 22,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 15
+        }}
+      />
+
+      {/* Animated Particles */}
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={`particle-${i}`}
+          className="absolute w-3 h-3 rounded-full"
+          style={{
+            left: `${15 + i * 12}%`,
+            top: `${25 + (i % 4) * 18}%`,
+            background: i % 4 === 0 ? 'rgba(255, 68, 68, 0.4)' : 
+                       i % 4 === 1 ? 'rgba(59, 130, 246, 0.3)' : 
+                       i % 4 === 2 ? 'rgba(34, 197, 94, 0.35)' : 
+                       'rgba(168, 85, 247, 0.3)',
+            filter: 'blur(0.5px)'
+          }}
+          animate={{
+            y: [0, -25, 0],
+            x: [0, (i % 2 === 0 ? 5 : -5), 0],
+            opacity: [0.3, 0.9, 0.3],
+            scale: [1, 1.8, 1],
+          }}
+          transition={{
+            duration: 4 + i * 0.8,
+            repeat: Infinity,
+            delay: i * 1.2,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+
+      {/* Enhanced Geometric Elements */}
+      <motion.div
+        className="absolute top-1/4 right-1/3 w-28 h-28 border-2 rounded-xl"
+        style={{
+          borderColor: 'rgba(255, 68, 68, 0.25)',
+          background: 'linear-gradient(45deg, rgba(255, 68, 68, 0.05), rgba(59, 130, 246, 0.05))'
+        }}
+        animate={{ 
+          rotate: [0, 90, 180, 270, 360],
+          scale: [1, 1.15, 1],
+          borderColor: [
+            'rgba(255, 68, 68, 0.25)',
+            'rgba(59, 130, 246, 0.25)',
+            'rgba(34, 197, 94, 0.25)',
+            'rgba(255, 68, 68, 0.25)'
+          ]
+        }}
+        transition={{ 
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+      
+      <motion.div
+        className="absolute bottom-1/4 left-1/3 w-20 h-20 border-2 border-blue-400/20 rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%)'
+        }}
+        animate={{ 
+          scale: [1, 1.4, 1],
+          opacity: [0.3, 0.8, 0.3],
+          borderColor: [
+            'rgba(59, 130, 246, 0.2)',
+            'rgba(34, 197, 94, 0.2)',
+            'rgba(168, 85, 247, 0.2)',
+            'rgba(59, 130, 246, 0.2)'
+          ]
+        }}
+        transition={{ 
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      <motion.div
+        className="absolute top-1/2 right-1/5 w-16 h-16"
+        style={{
+          background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(255, 68, 68, 0.1))',
+          clipPath: 'polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)',
+        }}
+        animate={{ 
+          rotate: [0, 180, 360],
+          scale: [1, 1.25, 1],
+          opacity: [0.4, 0.8, 0.4]
+        }}
+        transition={{ 
+          duration: 16,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+
+      {/* Main Content */}
+      <div className="container-modern relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="text-center"
+          className="max-w-5xl mx-auto"
         >
+          {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-4"
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
+            className="mb-8"
           >
-            <motion.div 
-              className="inline-block px-4 py-1 rounded-full bg-red-600/20 backdrop-blur-sm border border-red-500/30 mb-6"
-              whileHover={{ scale: 1.05 }}
-            >
-              <span className="text-sm font-bold text-red-400 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">24/7 Emergency Services</span>
-            </motion.div>
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass-card border-red-500/30">
+              <Zap className="h-4 w-4 text-red-400" />
+              <span className="text-body-sm font-semibold text-red-400">24/7 Emergency Services</span>
+            </div>
           </motion.div>
           
+          {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="heading-1 text-gradient mb-12 relative leading-[1.2] py-2 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
+            transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 50 }}
+            className="text-display-1 text-white mb-8 text-balance"
           >
             <motion.span 
               ref={el}
-              className="inline-block"
+              className="gradient-text-primary inline-block"
               animate={{ 
                 textShadow: [
-                  "0 0 10px rgba(255, 64, 64, 0.5), 0 0 20px rgba(0, 0, 0, 0.8)",
-                  "0 0 20px rgba(255, 64, 64, 0.7), 0 0 30px rgba(0, 0, 0, 0.8)",
-                  "0 0 10px rgba(255, 64, 64, 0.5), 0 0 20px rgba(0, 0, 0, 0.8)"
+                  "0 0 20px rgba(255, 68, 68, 0.5)",
+                  "0 0 40px rgba(255, 68, 68, 0.8)",
+                  "0 0 20px rgba(255, 68, 68, 0.5)"
                 ] 
               }}
               transition={{ 
-                duration: 2,
+                duration: 3,
                 repeat: Infinity,
                 repeatType: "reverse"
               }}
-            ></motion.span>
+            />
           </motion.h1>
           
+          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="body-large text-white/90 max-w-2xl mx-auto mb-12 relative drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-medium"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-body-lg text-white/90 max-w-3xl mx-auto mb-12 text-pretty"
           >
-            Zeus Power International (pvt) Ltd is a Subsidiary company of Illukkumbura Industrial 
-            Automation (pvt) Ltd. We handle all Emergency Breakdowns and Services in Electrical 
-            Systems, Fire Detection/Protection and Air-Conditioning Systems.
+            Zeus Power International (Pvt) Ltd is a subsidiary company of Illukkumbura Industrial 
+            Automation (Pvt) Ltd. We handle all emergency breakdowns and services in electrical 
+            systems, fire detection/protection, and air-conditioning systems.
           </motion.p>
           
+          {/* Feature Pills */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="relative flex justify-center gap-4"
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-wrap justify-center gap-4 mb-12"
           >
-            <Button
-              size="lg"
-              className="group relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 shadow-lg hover:shadow-red-500/20"
-            >
-              <span className="relative z-10 flex items-center gap-3">
-                <motion.span
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  Our Services
-                </motion.span>
-                <motion.div
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <ArrowRight className="h-5 w-5" />
-                </motion.div>
-              </span>
-            </Button>
-            
-            <motion.a
-              href="#contact"
-              className={`hidden md:inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full border-2 transition-all duration-300 shadow-lg ${
-                scrolled 
-                  ? 'border-red-500/30 hover:border-red-500/60 text-red-600 hover:bg-red-500/10' 
-                  : 'border-white/30 hover:border-white/60 text-white hover:bg-white/10'
-              }`}
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: 1 + index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className="flex items-center gap-2 px-4 py-2 rounded-full glass-card border-white/10"
+              >
+                <feature.icon className="h-4 w-4 text-red-400" />
+                <span className="text-body-sm text-white/90">{feature.text}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+          
+          {/* Action Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="flex flex-col sm:flex-row justify-center gap-4"
+          >
+            <motion.button
+              className="btn-primary group"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Contact Us
-            </motion.a>
+              <span>Explore Our Services</span>
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </motion.button>
+            
+            <motion.button
+              className="btn-secondary"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Get Emergency Support
+            </motion.button>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
+        >
+          <motion.div
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-1 h-3 bg-white/60 rounded-full mt-2"
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
-} 
+}

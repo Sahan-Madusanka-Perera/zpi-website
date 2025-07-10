@@ -24,7 +24,7 @@ export function ServiceModal({ isOpen, onClose, service }: ServiceModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 dark:bg-black/80 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/40 dark:bg-black/80 backdrop-blur-sm z-[60]"
             onClick={onClose}
           />
           <motion.div
@@ -32,7 +32,7 @@ export function ServiceModal({ isOpen, onClose, service }: ServiceModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl p-6 z-50"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl p-6 z-[60]"
           >
             <div className="relative bg-white dark:bg-black/95 rounded-xl border border-gray-200 dark:border-white/10 p-8 overflow-hidden shadow-xl">
               {/* Background Effects */}
