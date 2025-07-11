@@ -12,7 +12,6 @@ export function HeroSection() {
   const [mounted, setMounted] = useState(false);
   
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
 
   // Fixed particle positions to avoid hydration mismatch
   const particlePositions = [
