@@ -59,71 +59,48 @@ export function HeroSection() {
         {/* Base Gradient Foundation */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-black" />
         
-        {/* Dynamic Animated Grid */}
-        <div className="absolute inset-0 opacity-15">
+        {/* Optimized Animated Grid - Reduced Complexity */}
+        <div className="absolute inset-0 opacity-10">
           <motion.div
             className="absolute inset-0"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(255, 68, 68, 0.4) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 68, 68, 0.4) 1px, transparent 1px)
+                linear-gradient(rgba(255, 68, 68, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 68, 68, 0.3) 1px, transparent 1px)
               `,
               backgroundSize: '80px 80px',
             }}
             animate={{ 
               backgroundPosition: ['0px 0px', '80px 80px'],
-              opacity: [0.15, 0.25, 0.15]
-            }}
-            transition={{ 
-              duration: 25,
-              repeat: Infinity,
-              ease: 'linear'
-            }}
-          />
-          <motion.div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(59, 130, 246, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.2) 1px, transparent 1px)
-              `,
-              backgroundSize: '60px 60px',
-            }}
-            animate={{ 
-              backgroundPosition: ['60px 60px', '0px 0px'],
-              opacity: [0.1, 0.2, 0.1]
             }}
             transition={{ 
               duration: 30,
               repeat: Infinity,
-              ease: 'linear',
-              delay: 5
+              ease: 'linear'
             }}
           />
         </div>
 
-        {/* Subtle Main Background Image as Base */}
-        <motion.div
-          className="absolute inset-0 opacity-20"
-          style={{ y }}
-        >
+        {/* Optimized Static Background Image */}
+        <div className="absolute inset-0 opacity-20">
           <Image
             src="/images/HEM09771.jpg"
             alt="Zeus Power International"
             fill
             priority
-            className="object-cover scale-110"
-            quality={90}
+            className="object-cover"
+            quality={75}
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/60" />
-        </motion.div>
+        </div>
       </div>
 
-      {/* Elegant Floating Particles */}
-      {mounted && particlePositions.map((particle, i) => (
+      {/* Optimized Floating Particles - Reduced Count */}
+      {mounted && particlePositions.slice(0, 4).map((particle, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full"
+          className="absolute rounded-full will-change-transform"
           style={{
             left: `${particle.left}%`,
             top: `${particle.top}%`,
@@ -132,71 +109,45 @@ export function HeroSection() {
             background: particle.color
           }}
           animate={{
-            y: [0, -30, 0],
-            opacity: [0.3, 0.8, 0.3],
-            scale: [1, 1.5, 1],
+            y: [0, -20, 0],
+            opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
-            duration: 4 + i * 0.5,
+            duration: 6 + i,
             repeat: Infinity,
-            delay: i * 0.8,
+            delay: i * 1.5,
             ease: "easeInOut"
           }}
         />
       ))}
 
-      {/* Advanced Geometric Elements */}
+      {/* Simplified Geometric Elements - Reduced Count */}
       <motion.div
-        className="absolute top-1/4 left-1/3 w-32 h-32"
+        className="absolute top-1/4 left-1/3 w-24 h-24 will-change-transform"
         style={{
-          background: 'linear-gradient(45deg, rgba(255, 68, 68, 0.1), rgba(59, 130, 246, 0.1))',
+          background: 'linear-gradient(45deg, rgba(255, 68, 68, 0.08), rgba(59, 130, 246, 0.08))',
           clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
           filter: 'blur(1px)'
         }}
         animate={{ 
           rotate: [0, 360],
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.5, 0.2]
+          opacity: [0.2, 0.4, 0.2]
         }}
         transition={{ 
-          duration: 18,
+          duration: 25,
           repeat: Infinity,
           ease: "linear"
         }}
       />
 
       <motion.div
-        className="absolute bottom-1/3 right-1/4 w-28 h-28 border-2 rounded-full"
+        className="absolute bottom-1/3 right-1/4 w-20 h-20 border border-red-400/20 rounded-full will-change-transform"
         style={{
-          borderColor: 'rgba(255, 68, 68, 0.3)',
-          background: 'radial-gradient(circle, rgba(255, 68, 68, 0.05) 0%, transparent 70%)'
+          background: 'radial-gradient(circle, rgba(255, 68, 68, 0.03) 0%, transparent 70%)'
         }}
         animate={{ 
-          scale: [1, 1.6, 1],
-          opacity: [0.3, 0.7, 0.3],
-          rotate: [0, -360]
-        }}
-        transition={{ 
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      <motion.div
-        className="absolute top-2/3 left-1/5 w-20 h-20"
-        style={{
-          background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(168, 85, 247, 0.1))',
-          borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%'
-        }}
-        animate={{ 
-          rotate: [0, 180, 360],
-          scale: [1, 1.2, 1],
-          borderRadius: [
-            '30% 70% 70% 30% / 30% 30% 70% 70%',
-            '70% 30% 30% 70% / 70% 70% 30% 30%',
-            '30% 70% 70% 30% / 30% 30% 70% 70%'
-          ]
+          scale: [1, 1.3, 1],
+          opacity: [0.3, 0.6, 0.3],
         }}
         transition={{ 
           duration: 20,
@@ -205,43 +156,30 @@ export function HeroSection() {
         }}
       />
 
-      {/* Energy Pulse Rings */}
+      {/* Simplified Energy Pulse Rings */}
       <motion.div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
       >
         <motion.div
-          className="w-[500px] h-[500px] rounded-full border border-red-400/15"
+          className="w-96 h-96 rounded-full border border-red-400/10"
           animate={{
-            scale: [1, 2.5, 1],
-            opacity: [0.4, 0, 0.4],
+            scale: [1, 2, 1],
+            opacity: [0.3, 0, 0.3],
           }}
           transition={{
-            duration: 6,
+            duration: 8,
             repeat: Infinity,
             ease: "easeOut",
           }}
         />
         <motion.div
-          className="absolute w-96 h-96 rounded-full border border-blue-400/20"
-          animate={{
-            scale: [1, 2.2, 1],
-            opacity: [0.6, 0, 0.6],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeOut",
-            delay: 2,
-          }}
-        />
-        <motion.div
-          className="absolute w-80 h-80 rounded-full border border-green-400/25"
+          className="absolute w-80 h-80 rounded-full border border-blue-400/15"
           animate={{
             scale: [1, 1.8, 1],
-            opacity: [0.8, 0, 0.8],
+            opacity: [0.5, 0, 0.5],
           }}
           transition={{
-            duration: 6,
+            duration: 8,
             repeat: Infinity,
             ease: "easeOut",
             delay: 4,
@@ -249,109 +187,16 @@ export function HeroSection() {
         />
       </motion.div>
 
-      {/* Enhanced Atmospheric Orbs */}
+      {/* Optimized Atmospheric Orbs - Reduced Count and Complexity */}
       <motion.div
-        className="absolute -top-48 -right-48 h-[500px] w-[500px] rounded-full"
+        className="absolute -top-32 -right-32 h-80 w-80 rounded-full will-change-transform"
         style={{
-          background: 'radial-gradient(circle, rgba(255, 68, 68, 0.12) 0%, rgba(255, 68, 68, 0.06) 30%, rgba(59, 130, 246, 0.04) 60%, transparent 80%)',
-          filter: 'blur(60px)',
-        }}
-        animate={{ 
-          scale: [1, 1.4, 1],
-          opacity: [0.3, 0.8, 0.3],
-          rotate: [0, 180, 360]
-        }}
-        transition={{ 
-          duration: 28,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-10 -left-48 h-[450px] w-[450px] rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, rgba(168, 85, 247, 0.05) 40%, rgba(255, 68, 68, 0.03) 70%, transparent 85%)',
-          filter: 'blur(50px)',
-        }}
-        animate={{ 
-          scale: [1, 1.6, 1],
-          opacity: [0.2, 0.6, 0.2],
-          rotate: [360, 180, 0]
-        }}
-        transition={{ 
-          duration: 35,
-          repeat: Infinity,
-          ease: "linear",
-          delay: 8
-        }}
-      />
-
-      <motion.div
-        className="absolute top-1/3 -left-32 h-96 w-96 rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(34, 197, 94, 0.04) 50%, transparent 75%)',
+          background: 'radial-gradient(circle, rgba(255, 68, 68, 0.08) 0%, rgba(255, 68, 68, 0.02) 50%, transparent 80%)',
           filter: 'blur(40px)',
         }}
         animate={{ 
           scale: [1, 1.2, 1],
-          opacity: [0.4, 0.7, 0.4],
-          x: [0, 30, 0],
-          y: [0, -20, 0]
-        }}
-        transition={{ 
-          duration: 22,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 15
-        }}
-      />
-
-      {/* Animated Particles */}
-      {[...Array(8)].map((_, i) => (
-        <motion.div
-          key={`particle-${i}`}
-          className="absolute w-3 h-3 rounded-full"
-          style={{
-            left: `${15 + i * 12}%`,
-            top: `${25 + (i % 4) * 18}%`,
-            background: i % 4 === 0 ? 'rgba(255, 68, 68, 0.4)' : 
-                       i % 4 === 1 ? 'rgba(59, 130, 246, 0.3)' : 
-                       i % 4 === 2 ? 'rgba(34, 197, 94, 0.35)' : 
-                       'rgba(168, 85, 247, 0.3)',
-            filter: 'blur(0.5px)'
-          }}
-          animate={{
-            y: [0, -25, 0],
-            x: [0, (i % 2 === 0 ? 5 : -5), 0],
-            opacity: [0.3, 0.9, 0.3],
-            scale: [1, 1.8, 1],
-          }}
-          transition={{
-            duration: 4 + i * 0.8,
-            repeat: Infinity,
-            delay: i * 1.2,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
-
-      {/* Enhanced Geometric Elements */}
-      <motion.div
-        className="absolute top-1/4 right-1/3 w-28 h-28 border-2 rounded-xl"
-        style={{
-          borderColor: 'rgba(255, 68, 68, 0.25)',
-          background: 'linear-gradient(45deg, rgba(255, 68, 68, 0.05), rgba(59, 130, 246, 0.05))'
-        }}
-        animate={{ 
-          rotate: [0, 90, 180, 270, 360],
-          scale: [1, 1.15, 1],
-          borderColor: [
-            'rgba(255, 68, 68, 0.25)',
-            'rgba(59, 130, 246, 0.25)',
-            'rgba(34, 197, 94, 0.25)',
-            'rgba(255, 68, 68, 0.25)'
-          ]
+          opacity: [0.3, 0.6, 0.3],
         }}
         transition={{ 
           duration: 20,
@@ -361,40 +206,59 @@ export function HeroSection() {
       />
       
       <motion.div
-        className="absolute bottom-1/4 left-1/3 w-20 h-20 border-2 border-blue-400/20 rounded-full"
+        className="absolute bottom-0 -left-32 h-64 w-64 rounded-full will-change-transform"
         style={{
-          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%)'
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(34, 197, 94, 0.02) 50%, transparent 75%)',
+          filter: 'blur(30px)',
         }}
         animate={{ 
-          scale: [1, 1.4, 1],
-          opacity: [0.3, 0.8, 0.3],
-          borderColor: [
-            'rgba(59, 130, 246, 0.2)',
-            'rgba(34, 197, 94, 0.2)',
-            'rgba(168, 85, 247, 0.2)',
-            'rgba(59, 130, 246, 0.2)'
-          ]
+          scale: [1, 1.1, 1],
+          opacity: [0.4, 0.7, 0.4],
         }}
         transition={{ 
-          duration: 12,
+          duration: 15,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
       />
 
+      {/* Simplified Additional Particles */}
+      {[...Array(4)].map((_, i) => (
+        <motion.div
+          key={`particle-${i}`}
+          className="absolute w-2 h-2 rounded-full will-change-transform"
+          style={{
+            left: `${20 + i * 20}%`,
+            top: `${30 + i * 15}%`,
+            background: i % 2 === 0 ? 'rgba(255, 68, 68, 0.3)' : 'rgba(59, 130, 246, 0.2)',
+            filter: 'blur(0.5px)'
+          }}
+          animate={{
+            y: [0, -15, 0],
+            opacity: [0.3, 0.7, 0.3],
+          }}
+          transition={{
+            duration: 6 + i * 2,
+            repeat: Infinity,
+            delay: i * 2,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+
+      {/* Simplified Additional Geometric Elements */}
       <motion.div
-        className="absolute top-1/2 right-1/5 w-16 h-16"
+        className="absolute top-1/2 right-1/5 w-12 h-12 will-change-transform"
         style={{
-          background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(255, 68, 68, 0.1))',
+          background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(255, 68, 68, 0.08))',
           clipPath: 'polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)',
         }}
         animate={{ 
           rotate: [0, 180, 360],
-          scale: [1, 1.25, 1],
-          opacity: [0.4, 0.8, 0.4]
+          opacity: [0.4, 0.6, 0.4]
         }}
         transition={{ 
-          duration: 16,
+          duration: 18,
           repeat: Infinity,
           ease: "easeInOut"
         }}
@@ -428,21 +292,9 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 50 }}
             className="text-display-1 text-white mb-8 text-balance"
           >
-            <motion.span 
+            <span 
               ref={el}
               className="gradient-text-primary inline-block"
-              animate={{ 
-                textShadow: [
-                  "0 0 20px rgba(255, 68, 68, 0.5)",
-                  "0 0 40px rgba(255, 68, 68, 0.8)",
-                  "0 0 20px rgba(255, 68, 68, 0.5)"
-                ] 
-              }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
             />
           </motion.h1>
           
