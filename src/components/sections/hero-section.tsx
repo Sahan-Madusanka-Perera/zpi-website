@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { ArrowRight, Zap, Shield, Clock } from 'lucide-react';
 import Image from 'next/image';
@@ -10,8 +10,6 @@ export function HeroSection() {
   const containerRef = useRef(null);
   const el = useRef(null);
   const [mounted, setMounted] = useState(false);
-  
-  const { scrollY } = useScroll();
 
   // Fixed particle positions to avoid hydration mismatch
   const particlePositions = [
