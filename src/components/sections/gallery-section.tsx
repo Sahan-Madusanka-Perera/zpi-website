@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X, Camera, Maximize2 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -106,7 +106,11 @@ export function GallerySection() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!selectedImage && !isTransitioning) {
-        nextSlide();
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setCurrentIndex((prev) => (prev + 1) % galleryImages.length);
+          setIsTransitioning(false);
+        }, 300);
       }
     }, 4000);
 
