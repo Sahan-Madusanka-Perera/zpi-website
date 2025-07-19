@@ -54,6 +54,7 @@ export function Navbar() {
   const navigationItems = [
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
+    { name: 'Gallery', href: '#gallery' },
     { name: 'Timeline', href: '#timeline' },
     { name: 'Team', href: '#team' },
     { name: 'Contact', href: '#contact' },

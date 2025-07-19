@@ -10,6 +10,19 @@ export function HeroSection() {
   const containerRef = useRef(null);
   const el = useRef(null);
   const [mounted, setMounted] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Background images for morphing effect
+  const backgroundImages = [
+    "/images/service2.jpg",
+    "/images/service3.jpg",
+    "/images/service4.jpg",
+    "/images/service10.jpg",
+    "/images/HEM09771.jpg",
+    "/images/team_pose_2.jpg",
+    "/images/service1.jpg",
+    "/images/service8.jpg"
+  ];
 
   // Fixed particle positions to avoid hydration mismatch
   const particlePositions = [
@@ -26,6 +39,15 @@ export function HeroSection() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Image transition effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
+    }, 6000); // Change image every 6 seconds
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
 
   useEffect(() => {
     const typed = new Typed(el.current, {
@@ -78,18 +100,35 @@ export function HeroSection() {
           />
         </div>
 
-        {/* Optimized Static Background Image */}
+        {/* Optimized Animated Background Images with Smooth Morphing */}
         <div className="absolute inset-0 opacity-20">
-          <Image
-            src="/images/HEM09771.jpg"
-            alt="Zeus Power International"
-            fill
-            priority
-            className="object-cover"
-            quality={75}
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/60" />
+          {backgroundImages.map((image, index) => (
+            <motion.div
+              key={`bg-image-${index}`}
+              className="absolute inset-0"
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ 
+                opacity: index === currentImageIndex ? 1 : 0,
+                scale: index === currentImageIndex ? 1 : 1.1
+              }}
+              transition={{ 
+                duration: 1.5,
+                ease: [0.4, 0, 0.2, 1] // Custom cubic-bezier for smooth morphing
+              }}
+              style={{ zIndex: index === currentImageIndex ? 2 : 1 }}
+            >
+              <Image
+                src={image}
+                alt={`Zeus Power International Background ${index + 1}`}
+                fill
+                priority={index === 0}
+                className="object-cover"
+                quality={75}
+                sizes="100vw"
+              />
+            </motion.div>
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/60 z-10" />
         </div>
       </div>
 
