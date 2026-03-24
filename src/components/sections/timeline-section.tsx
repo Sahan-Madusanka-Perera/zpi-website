@@ -104,7 +104,7 @@ const timeline = [
   {
     year: "2004",
     title: "Quality Certification",
-    description: "Illukkumbura Industrial Automation (Pvt) Ltd is certified as ISO 9001:2000 company and achieved an EM 1 Grade in CIDA ranking",
+    description: "Illukkumbura Industrial Automation (Pvt) Ltd is certified as ISO 9001:2000 company and achieved an EM 4 Grade in CIDA ranking",
     icon: <Award className="h-6 w-6" />
   },
   {
@@ -152,7 +152,7 @@ export function TimelineSection() {
           backgroundSize: '20px 20px'
         }} />
       </div>
-      
+
       {/* Enhanced Background Effects */}
       <motion.div
         className="absolute -top-40 -right-40 h-96 w-96 rounded-full"
@@ -160,30 +160,30 @@ export function TimelineSection() {
           background: 'radial-gradient(circle, rgba(255, 68, 68, 0.15) 0%, rgba(255, 68, 68, 0.05) 40%, transparent 70%)',
           filter: 'blur(40px)',
         }}
-        animate={{ 
+        animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.6, 0.3],
           rotate: [0, 180, 360]
         }}
-        transition={{ 
+        transition={{
           duration: 20,
           repeat: Infinity,
           ease: "linear"
         }}
       />
-      
+
       <motion.div
         className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full"
         style={{
           background: 'radial-gradient(circle, rgba(255, 68, 68, 0.1) 0%, rgba(255, 68, 68, 0.03) 40%, transparent 70%)',
           filter: 'blur(30px)',
         }}
-        animate={{ 
+        animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.2, 0.4, 0.2],
           rotate: [360, 180, 0]
         }}
-        transition={{ 
+        transition={{
           duration: 15,
           repeat: Infinity,
           ease: "linear"
@@ -204,12 +204,12 @@ export function TimelineSection() {
             <Building2 className="h-4 w-4 text-red-500" />
             <span className="text-body-sm font-semibold text-red-600 dark:text-red-400">Our Journey</span>
           </motion.div>
-          
+
           <h2 className="text-display-2 gradient-text-primary mb-6 text-balance">
             Three Decades of Excellence
           </h2>
           <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-pretty">
-            From our founding in 1992 to becoming a leading technical services provider, 
+            From our founding in 1992 to becoming a leading technical services provider,
             discover the milestones that have shaped Zeus Power International&apos;s commitment to excellence.
           </p>
         </motion.div>

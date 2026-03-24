@@ -129,7 +129,7 @@ export function Navbar() {
                         }}
                       >
                         <Image
-                          src={theme === 'light' ? '/images/logo_for_light.png' : '/images/logo.png'}
+                          src={theme === 'light' ? '/images/logo_for_light.webp' : '/images/logo.webp'}
                           alt="Zeus Power International Logo"
                           fill
                           className="object-contain"
@@ -188,22 +188,24 @@ export function Navbar() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex items-center gap-3"
             >
-              {/* Emergency Button */}
-              <motion.a
-                href="tel:+94703037037"
-                className="hidden md:flex items-center gap-2 btn-primary px-4 py-2 text-sm"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <PhoneCall className="h-4 w-4" />
-                <span className="font-semibold">Emergency</span>
-              </motion.a>
+              {/* Emergency Button - Desktop only (available in mobile drawer) */}
+              <div className="hidden lg:block">
+                <motion.a
+                  href="tel:+94703037037"
+                  className="flex items-center gap-2 btn-primary px-4 py-2 text-sm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <PhoneCall className="h-4 w-4" />
+                  <span className="font-semibold">Emergency</span>
+                </motion.a>
+              </div>
 
-              {/* Theme Toggle */}
+              {/* Theme Toggle - Desktop only (mobile uses the drawer toggle) */}
               <motion.button
                 onClick={toggleTheme}
                 disabled={isTransitioning}
-                className={`p-2 rounded-lg glass-card border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors duration-200 ${
+                className={`hidden lg:block p-2 rounded-lg glass-card border-gray-200/50 dark:border-gray-700/50 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors duration-200 ${
                   isTransitioning ? 'opacity-75 cursor-not-allowed' : ''
                 }`}
                 whileHover={!isTransitioning ? { scale: 1.05 } : {}}
@@ -316,6 +318,35 @@ export function Navbar() {
                     </motion.button>
                   ))}
                 </nav>
+
+                {/* Mobile Theme Toggle */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.4 }}
+                  className="mb-6"
+                >
+                  <button
+                    onClick={toggleTheme}
+                    disabled={isTransitioning}
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-lg glass-card border-gray-200/30 dark:border-gray-700/30 transition-all duration-200 ${
+                      isTransitioning ? 'opacity-75 cursor-not-allowed' : 'hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
+                    }`}
+                  >
+                    <span className="text-body font-medium text-gray-700 dark:text-gray-300">
+                      {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                    </span>
+                    <div className="w-8 h-8 flex items-center justify-center">
+                      {isTransitioning ? (
+                        <div className="w-4 h-4 rounded-full border-2 border-gray-300 border-t-red-500 animate-spin" />
+                      ) : theme === 'dark' ? (
+                        <Sun className="h-5 w-5 text-yellow-500" />
+                      ) : (
+                        <Moon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                      )}
+                    </div>
+                  </button>
+                </motion.div>
 
                 {/* Mobile Emergency Button */}
                 <motion.a

@@ -14,14 +14,14 @@ export function HeroSection() {
 
   // Background images for morphing effect
   const backgroundImages = [
-    "/images/service2.jpg",
-    "/images/service3.jpg",
-    "/images/service4.jpg",
-    "/images/service10.jpg",
-    "/images/HEM09771.jpg",
-    "/images/team_pose_2.jpg",
-    "/images/service1.jpg",
-    "/images/service8.jpg"
+    "/images/service2.webp",
+    "/images/service3.webp",
+    "/images/service4.webp",
+    "/images/service10.webp",
+    "/images/HEM09771.webp",
+    "/images/team_pose_2.webp",
+    "/images/service1.webp",
+    "/images/service8.webp"
   ];
 
   // Fixed particle positions to avoid hydration mismatch

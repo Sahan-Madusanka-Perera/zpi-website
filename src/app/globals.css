@@ -388,13 +388,13 @@
 
 img:not([src]), /* When image src is empty */
 img[src=""], /* When image src is empty string */
-img[src="/images/logo.png"]:not([src*="data:"]):not([src^="blob:"]) /* When image fails to load */ {
+img[src="/images/logo.webp"]:not([src*="data:"]):not([src^="blob:"]) /* When image fails to load */ {
   display: none;
 }
 
 img:not([src]) ~ .logo-fallback,
 img[src=""] ~ .logo-fallback,
-img[src="/images/logo.png"]:not([src*="data:"]):not([src^="blob:"]) ~ .logo-fallback {
+img[src="/images/logo.webp"]:not([src*="data:"]):not([src^="blob:"]) ~ .logo-fallback {
   opacity: 1;
 }
 

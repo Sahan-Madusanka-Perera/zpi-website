@@ -10,21 +10,21 @@ const companies = [
     name: 'Illukkumbura',
     fullName: 'Illukkumbura Industrial Automation (PVT) Ltd',
     description: 'Specializing in industrial automation and control systems.',
-    image: '/images/placeholder-illukkumbura.png',
+    image: '/images/placeholder-illukkumbura.webp',
     services: ['Industrial Automation', 'Control Systems', 'Process Optimization']
   },
   {
     name: 'Bianco',
     fullName: 'Bianco Electrical (PVT) Ltd',
     description: 'Leading provider of electrical solutions and maintenance.',
-    image: '/images/placeholder-bianco.jpg',
+    image: '/images/placeholder-bianco.webp',
     services: ['Electrical Solutions', 'Maintenance Services', 'Power Systems']
   },
   {
     name: 'Ceylektra',
     fullName: 'Ceylektra Power Solutions',
     description: 'Innovative power solutions and energy management.',
-    image: '/images/placeholder-ceylektra.jpg',
+    image: '/images/placeholder-ceylektra.webp',
     services: ['Power Solutions', 'Energy Management', 'Grid Systems']
   }
 ];

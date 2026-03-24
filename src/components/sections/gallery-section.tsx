@@ -7,94 +7,17 @@ import Image from 'next/image';
 
 // Gallery images data
 const galleryImages = [
-  {
-    id: 1,
-    src: "/images/service1.jpg",
-    alt: "Electrical Systems Maintenance",
-    category: "Electrical",
-    title: "Advanced Electrical Systems",
-    description: "Professional maintenance and installation of electrical infrastructure"
-  },
-  {
-    id: 2,
-    src: "/images/service2.jpg",
-    alt: "Power Infrastructure",
-    category: "Electrical",
-    title: "Power Infrastructure",
-    description: "Comprehensive power distribution and management solutions"
-  },
-  {
-    id: 3,
-    src: "/images/service3.jpg",
-    alt: "Emergency Response",
-    category: "Emergency",
-    title: "24/7 Emergency Response",
-    description: "Rapid response for critical system failures and emergencies"
-  },
-  {
-    id: 4,
-    src: "/images/service4.jpg",
-    alt: "System Analysis",
-    category: "Analysis",
-    title: "System Analysis & Testing",
-    description: "Thorough analysis and testing of all system components"
-  },
-  {
-    id: 5,
-    src: "/images/service5.jpg",
-    alt: "Fire Protection Systems",
-    category: "Fire Safety",
-    title: "Fire Protection Systems",
-    description: "Advanced fire detection and suppression systems"
-  },
-  {
-    id: 6,
-    src: "/images/service6.jpg",
-    alt: "Safety Detection",
-    category: "Fire Safety",
-    title: "Safety Detection",
-    description: "Cutting-edge safety monitoring and alert systems"
-  },
-  {
-    id: 7,
-    src: "/images/service7.jpg",
-    alt: "Fire System Maintenance",
-    category: "Fire Safety",
-    title: "Fire System Maintenance",
-    description: "Regular maintenance and testing of fire safety equipment"
-  },
-  {
-    id: 8,
-    src: "/images/service8.jpg",
-    alt: "Air Conditioning Service",
-    category: "HVAC",
-    title: "HVAC Solutions",
-    description: "Complete air conditioning and climate control services"
-  },
-  {
-    id: 9,
-    src: "/images/service9.jpg",
-    alt: "Climate Control Systems",
-    category: "HVAC",
-    title: "Climate Control",
-    description: "Precision climate control for optimal comfort"
-  },
-  {
-    id: 10,
-    src: "/images/service10.jpg",
-    alt: "HVAC Maintenance",
-    category: "HVAC",
-    title: "HVAC Maintenance",
-    description: "Professional maintenance for peak system performance"
-  },
-  {
-    id: 11,
-    src: "/images/service11.jpg",
-    alt: "Cooling Solutions",
-    category: "HVAC",
-    title: "Advanced Cooling",
-    description: "Innovative cooling solutions for all environments"
-  }
+  { id: 1, src: "/images/service1.webp", alt: "Electrical Systems Maintenance" },
+  { id: 2, src: "/images/service2.webp", alt: "Power Infrastructure" },
+  { id: 3, src: "/images/service3.webp", alt: "Emergency Response" },
+  { id: 4, src: "/images/service4.webp", alt: "System Analysis" },
+  { id: 5, src: "/images/service5.webp", alt: "Fire Protection Systems" },
+  { id: 6, src: "/images/service6.webp", alt: "Safety Detection" },
+  { id: 7, src: "/images/service7.webp", alt: "Fire System Maintenance" },
+  { id: 8, src: "/images/service8.webp", alt: "Air Conditioning Service" },
+  { id: 9, src: "/images/service9.webp", alt: "Climate Control Systems" },
+  { id: 10, src: "/images/service10.webp", alt: "HVAC Maintenance" },
+  { id: 11, src: "/images/service11.webp", alt: "Cooling Solutions" }
 ];
 
 export function GallerySection() {
@@ -205,7 +128,7 @@ export function GallerySection() {
             Our Work in Action
           </h2>
           <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-pretty">
-            Explore our comprehensive portfolio of electrical systems, fire protection, and HVAC solutions. 
+            Explore our comprehensive portfolio of electrical systems, fire protection, and HVAC solutions.
             Each project represents our commitment to excellence and technical expertise.
           </p>
         </motion.div>
@@ -237,23 +160,8 @@ export function GallerySection() {
                   quality={95}
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                
-                {/* Image Info Overlay */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="absolute bottom-6 left-6 right-6 text-white"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="px-3 py-1 bg-red-500/90 rounded-full text-xs font-medium">
-                      {currentImage.category}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-1">{currentImage.title}</h3>
-                  <p className="text-white/90 text-xs leading-relaxed">{currentImage.description}</p>
-                </motion.div>
+                {/* Subtle bottom gradient for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                 
                 {/* Expand Icon */}
                 <motion.div
@@ -268,7 +176,7 @@ export function GallerySection() {
             </div>
 
             {/* Right Side - Stacked Next Images */}
-            <div className="w-80 flex flex-col gap-4">
+            <div className="w-80 hidden md:flex flex-col gap-4">
               {nextImages.map((image, index) => (
                 <motion.div
                   key={`${image.id}-${currentIndex}`}
@@ -300,7 +208,7 @@ export function GallerySection() {
                     className="object-cover transition-all duration-500 group-hover:scale-110"
                     quality={85}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                   
                   {/* Smooth Morphing Overlay */}
                   <motion.div
@@ -308,16 +216,6 @@ export function GallerySection() {
                     whileHover={{ opacity: 1 }}
                     className="absolute inset-0 bg-gradient-to-r from-red-500/20 via-transparent to-red-500/20"
                   />
-                  
-                  {/* Image Title */}
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="px-2 py-1 bg-white/20 rounded-full text-xs font-medium">
-                        {image.category}
-                      </span>
-                    </div>
-                    <h4 className="text-xs font-semibold truncate">{image.title}</h4>
-                  </div>
                   
                   {/* Hover Effect */}
                   <motion.div
@@ -428,17 +326,6 @@ export function GallerySection() {
             >
               <X className="h-6 w-6" />
             </button>
-            
-            {/* Image Info */}
-            <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4 text-white">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-2 py-1 bg-red-500/80 rounded-full text-xs font-medium">
-                  {selectedImage.category}
-                </span>
-              </div>
-              <h3 className="text-xl font-bold mb-1">{selectedImage.title}</h3>
-              <p className="text-sm text-white/90">{selectedImage.description}</p>
-            </div>
           </motion.div>
         </motion.div>
       )}

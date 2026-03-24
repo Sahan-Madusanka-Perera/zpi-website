@@ -1,12 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Zap, Flame, Snowflake, ArrowRight, CheckCircle, Settings, Shield, Clock, Eye, X } from 'lucide-react';
+import { Zap, Flame, Snowflake, Sun, ArrowRight, CheckCircle, Settings, Shield, Clock } from 'lucide-react';
 import { ServiceModal } from '../ui/service-modal';
-import { useNavbar } from '@/context/navbar-context';
-import Image from 'next/image';
 
 const services = [
   {
@@ -23,7 +21,6 @@ const services = [
     iconComponent: Zap,
     gradient: "from-blue-500 to-blue-600",
     features: ["24/7 Emergency Response", "Preventive Maintenance", "System Analysis", "Infrared Thermography"],
-    images: ["service1.jpg", "service2.jpg", "service3.jpg", "service4.jpg"]
   },
   {
     title: "Fire Protection",
@@ -40,7 +37,6 @@ const services = [
     iconComponent: Flame,
     gradient: "from-red-500 to-red-600",
     features: ["System Maintenance", "Risk Assessment", "Component Replacement", "Safety Compliance"],
-    images: ["service5.jpg", "service6.jpg", "service7.jpg"]
   },
   {
     title: "Air Conditioning",
@@ -57,40 +53,29 @@ const services = [
     iconComponent: Snowflake,
     gradient: "from-cyan-500 to-cyan-600",
     features: ["Emergency Repairs", "Preventive Care", "Efficiency Optimization", "Expert Support"],
-    images: ["service8.jpg", "service9.jpg", "service10.jpg", "service11.jpg"]
+  },
+  {
+    title: "Solar Services",
+    subtitle: "Renewable Energy",
+    description: "Reliable, sustainable, and efficient solar energy solutions. Zeus Power International has successfully commenced its Solar Services Division, committed to supporting clients in embracing clean energy.",
+    details: [
+      "Solar panel installation and commissioning",
+      "Solar system maintenance and servicing",
+      "Energy efficiency assessments and optimization",
+      "Grid-tied and off-grid solar solutions",
+      "Professional consultation for residential and commercial solar projects"
+    ],
+    icon: <Sun className="h-8 w-8 text-red-500" />,
+    iconComponent: Sun,
+    gradient: "from-yellow-500 to-orange-500",
+    features: ["Solar Installation", "System Maintenance", "Energy Optimization", "Clean Energy Solutions"],
   }
-];
-
-// Service gallery images for showcase
-const serviceGalleryImages = [
-  { src: "service1.jpg", alt: "Electrical Systems Maintenance", category: "Electrical" },
-  { src: "service2.jpg", alt: "Power Infrastructure", category: "Electrical" },
-  { src: "service3.jpg", alt: "Emergency Response", category: "Electrical" },
-  { src: "service4.jpg", alt: "System Analysis", category: "Electrical" },
-  { src: "service5.jpg", alt: "Fire Protection Systems", category: "Fire Safety" },
-  { src: "service6.jpg", alt: "Safety Detection", category: "Fire Safety" },
-  { src: "service7.jpg", alt: "Fire System Maintenance", category: "Fire Safety" },
-  { src: "service8.jpg", alt: "Air Conditioning Service", category: "HVAC" },
-  { src: "service9.jpg", alt: "Climate Control Systems", category: "HVAC" },
-  { src: "service10.jpg", alt: "HVAC Maintenance", category: "HVAC" },
-  { src: "service11.jpg", alt: "Cooling Solutions", category: "HVAC" }
 ];
 
 export function ServicesSection() {
   const [selectedService, setSelectedService] = useState<number | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { hideNavbar, showNavbar } = useNavbar();
-
-  // Handle navbar visibility when image modal opens/closes
-  useEffect(() => {
-    if (selectedImage) {
-      hideNavbar();
-    } else {
-      showNavbar();
-    }
-  }, [selectedImage, hideNavbar, showNavbar]);
 
   return (
     <section id="services" className="section-modern bg-gradient-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 relative overflow-hidden">
@@ -125,13 +110,13 @@ export function ServicesSection() {
             Expert Technical Solutions for Every Industry
           </h2>
           <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-pretty">
-            Dedicated to providing comprehensive technical support and emergency response services 
+            Dedicated to providing comprehensive technical support and emergency response services
             to minimize manufacturing downtime and ensure continuous operations across all industries.
           </p>
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -141,7 +126,7 @@ export function ServicesSection() {
               className="group cursor-pointer"
               onClick={() => setSelectedService(index)}
             >
-              <div className="modern-card p-8 h-full group-hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
+              <div className="modern-card p-8 h-full group-hover:scale-[1.02] transition-all duration-300 relative overflow-hidden flex flex-col">
                 {/* Service Icon */}
                 <div className="relative mb-6">
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
@@ -151,7 +136,7 @@ export function ServicesSection() {
                 </div>
 
                 {/* Service Content */}
-                <div className="mb-6">
+                <div className="mb-6 flex-1">
                   <div className="text-body-sm text-gray-500 dark:text-gray-400 mb-2 font-medium">
                     {service.subtitle}
                   </div>
@@ -174,7 +159,7 @@ export function ServicesSection() {
                 </div>
 
                 {/* Learn More Button */}
-                <div className="flex items-center text-red-500 font-medium group-hover:translate-x-2 transition-transform duration-300">
+                <div className="flex items-center text-red-500 font-medium group-hover:translate-x-2 transition-transform duration-300 mt-auto">
                   <span className="text-body-sm">Learn More</span>
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </div>
@@ -185,159 +170,6 @@ export function ServicesSection() {
             </motion.div>
           ))}
         </div>
-
-        {/* Service Gallery Marquee */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mb-16"
-        >
-          <div className="text-center mb-12">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-red-500/20 mb-6"
-            >
-              <Eye className="h-4 w-4 text-red-500" />
-              <span className="text-body-sm font-semibold text-red-600 dark:text-red-400">Our Work in Action</span>
-            </motion.div>
-            
-            <h3 className="text-heading-1 gradient-text-primary mb-4">
-              Professional Service Gallery
-            </h3>
-            <p className="text-body-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Discover our comprehensive range of technical services through these real-world examples 
-              of our expert work and professional installations.
-            </p>
-          </div>
-
-          {/* Marquee Container */}
-          <div className="relative overflow-hidden">
-            {/* Gradient Overlays */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
-            
-            {/* Marquee Track */}
-            <div className="flex gap-6 animate-marquee hover:pause-marquee">
-              {/* First set of images */}
-              {serviceGalleryImages.map((image, index) => (
-                <div
-                  key={`first-${index}`}
-                  className="group cursor-pointer flex-shrink-0"
-                  onClick={() => setSelectedImage(image.src)}
-                >
-                  <div className="relative w-80 h-60 rounded-2xl overflow-hidden glass-card p-2 transition-transform duration-300 hover:scale-105">
-                    <div className="relative w-full h-full rounded-xl overflow-hidden">
-                      <Image
-                        src={`/images/${image.src}`}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="320px"
-                      />
-                      
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Content */}
-                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="px-2 py-1 rounded-full bg-red-500/80 text-xs font-medium">
-                            {image.category}
-                          </span>
-                        </div>
-                        <h4 className="text-sm font-semibold">{image.alt}</h4>
-                      </div>
-
-                      {/* View Icon */}
-                      <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Eye className="h-4 w-4 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              
-              {/* Duplicate set for seamless loop */}
-              {serviceGalleryImages.map((image, index) => (
-                <div
-                  key={`second-${index}`}
-                  className="group cursor-pointer flex-shrink-0"
-                  onClick={() => setSelectedImage(image.src)}
-                >
-                  <div className="relative w-80 h-60 rounded-2xl overflow-hidden glass-card p-2 transition-transform duration-300 hover:scale-105">
-                    <div className="relative w-full h-full rounded-xl overflow-hidden">
-                      <Image
-                        src={`/images/${image.src}`}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="320px"
-                      />
-                      
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Content */}
-                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="px-2 py-1 rounded-full bg-red-500/80 text-xs font-medium">
-                            {image.category}
-                          </span>
-                        </div>
-                        <h4 className="text-sm font-semibold">{image.alt}</h4>
-                      </div>
-
-                      {/* View Icon */}
-                      <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Eye className="h-4 w-4 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Image Modal */}
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-            onClick={() => setSelectedImage(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="relative max-w-4xl max-h-[90vh] w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative w-full h-full rounded-2xl overflow-hidden">
-                <Image
-                  src={`/images/${selectedImage}`}
-                  alt="Service Gallery Image"
-                  width={1200}
-                  height={800}
-                  className="object-contain w-full h-full"
-                />
-              </div>
-              
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 z-[70] w-12 h-12 rounded-full bg-black/70 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/90 transition-all duration-200 shadow-lg border-2 border-white/20"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
 
         {/* Call to Action */}
         <motion.div
@@ -363,7 +195,7 @@ export function ServicesSection() {
               Need Emergency Support?
             </h3>
             <p className="text-body-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Our expert technicians are available 24/7 to handle any emergency breakdown 
+              Our expert technicians are available 24/7 to handle any emergency breakdown
               and get your systems back online with minimal downtime.
             </p>
             

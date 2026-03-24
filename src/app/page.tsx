@@ -19,6 +19,18 @@ export default function Home() {
       <TeamSection />
       <StrengthSection />
       <ContactSection />
+
+      {/* Copyright Footer */}
+      <footer className="bg-gray-950 border-t border-gray-800/50">
+        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} Zeus Power International (Pvt) Ltd. All rights reserved.
+          </p>
+          <p className="text-xs text-gray-500">
+            A subsidiary of Illukkumbura Industrial Automation (Pvt) Ltd
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
