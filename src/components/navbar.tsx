@@ -190,7 +190,7 @@ export function Navbar() {
             >
               {/* Emergency Button */}
               <motion.a
-                href="tel:+94777441142"
+                href="tel:+94703037037"
                 className="hidden md:flex items-center gap-2 btn-primary px-4 py-2 text-sm"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
@@ -319,7 +319,7 @@ export function Navbar() {
 
                 {/* Mobile Emergency Button */}
                 <motion.a
-                  href="tel:+94777441142"
+                  href="tel:+94703037037"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.5 }}
@@ -328,7 +328,7 @@ export function Navbar() {
                 >
                   <PhoneCall className="h-5 w-5" />
                   <span>Emergency Hotline</span>
-                  <span className="font-bold">077 7 441 142</span>
+                  <span className="font-bold">+94 (70) 303 7037</span>
                 </motion.a>
               </div>
             </motion.div>

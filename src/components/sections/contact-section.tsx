@@ -12,19 +12,19 @@ export function ContactSection() {
     {
       icon: Phone,
       title: "Emergency Hotline",
-      details: ["077 7 441 142", "24/7 Emergency Support"],
+      details: ["+94 (70) 303 7037", "24/7 Emergency Support"],
       gradient: "from-red-500 to-red-600"
     },
     {
       icon: Mail,
       title: "Email Us",
-      details: ["info@zeuspower.lk", "support@zeuspower.lk"],
+      details: ["zeuspower@iial.Ik"],
       gradient: "from-blue-500 to-blue-600"
     },
     {
       icon: MapPin,
       title: "Visit Our Office",
-      details: ["Colombo, Sri Lanka", "Monday - Saturday: 8AM - 6PM"],
+      details: ["Zeus Power International (Pvt) Ltd, 655/1, Gunathilaka Gardens, Elvitigala Mawatha, Colombo 05, Sri Lanka", "Monday - Saturday: 8AM - 6PM"],
       gradient: "from-green-500 to-green-600"
     },
     {
@@ -158,18 +158,18 @@ export function ContactSection() {
 
               <div className="flex flex-col gap-4">
                 <motion.a
-                  href="tel:+94777441142"
+                  href="tel:+94703037037"
                   className="btn-primary group text-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <Phone className="h-5 w-5" />
                   <span>Call Emergency Line</span>
-                  <span className="font-bold">077 7 441 142</span>
+                  <span className="font-bold">+94 (70) 303 7037</span>
                 </motion.a>
                 
                 <motion.a
-                  href="mailto:emergency@zeuspower.lk"
+                  href="mailto:zeuspower@iial.Ik"
                   className="btn-secondary text-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
@@ -218,7 +218,7 @@ export function ContactSection() {
                       Head Office
                     </h4>
                     <p className="text-body-sm text-gray-600 dark:text-gray-400">
-                      Colombo, Sri Lanka<br />
+                      Zeus Power International (Pvt) Ltd, 655/1, Gunathilaka Gardens, Elvitigala Mawatha, Colombo 05, Sri Lanka<br />
                       Monday - Saturday: 8:00 AM - 6:00 PM
                     </p>
                   </div>
@@ -233,8 +233,7 @@ export function ContactSection() {
                       Email Support
                     </h4>
                     <p className="text-body-sm text-gray-600 dark:text-gray-400">
-                      info@zeuspower.lk<br />
-                      support@zeuspower.lk
+                      zeuspower@iial.Ik
                     </p>
                   </div>
                 </div>
@@ -242,7 +241,7 @@ export function ContactSection() {
 
               <div className="flex flex-col gap-4">
                 <motion.a
-                  href="mailto:info@zeuspower.lk"
+                  href="mailto:zeuspower@iial.Ik"
                   className="btn-primary group text-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
