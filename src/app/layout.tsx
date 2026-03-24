@@ -23,6 +23,11 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Zeus Power International",
   description: "Emergency Electrical Services and Solutions",
+  icons: {
+    icon: [
+      { url: '/images/logo.webp', type: 'image/webp' }
+    ]
+  }
 };
 
 export default function RootLayout({

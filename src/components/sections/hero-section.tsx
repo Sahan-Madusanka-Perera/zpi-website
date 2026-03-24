@@ -326,7 +326,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 50 }}
-            className="text-display-1 text-white mb-8 text-balance"
+            className="text-display-1 text-white mb-8 text-balance min-h-[3em] md:min-h-0 flex items-center justify-center"
           >
             <span 
               ref={el}
@@ -406,7 +406,7 @@ export function HeroSection() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:block"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
